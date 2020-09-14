@@ -1,7 +1,7 @@
 provider "postgresql" {
-  host    = var.postgres_host
-  userame = var.postgres_username
-  sslmode = "disable"
+  host     = var.postgres_host
+  username = var.postgres_username
+  sslmode  = "disable"
 }
 
 provider "docker" {}
