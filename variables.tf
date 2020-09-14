@@ -20,3 +20,7 @@ variable "postgres_host" {
 variable "postgres_network_name" {
   type = string
 }
+variable "postgres_root_username" {
+  type    = string
+  default = "postgres"
+}
