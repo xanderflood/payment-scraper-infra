@@ -31,7 +31,7 @@ defaults:
 volumes:
   - name: tfstate
     host:
-      path: /media/nas/blue-house-terraform/state/manager
+      path: /media/nas/blue-house-terraform/state/payments
   - name: dockersock
     host:
       path: /var/run/docker.sock
