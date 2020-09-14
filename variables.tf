@@ -7,7 +7,7 @@ variable "protonmail_password" {
 variable "protonmail_label_name" {
   type = string
 }
-variable "telegram_bot_api_token" {
+variable "telegram_bot_api_key" {
   type = string
 }
 variable "telegram_bot_api_chat_id" {
