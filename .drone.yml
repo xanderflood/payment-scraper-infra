@@ -22,7 +22,8 @@ defaults:
       from_secret: postgres_host
     TF_VAR_postgres_network_name:
       from_secret: postgres_network_name
-    PGPASSWORD: postgres_root_password
+    TF_VAR_postgres_root_password:
+      from_secret: postgres_root_password
   volumes: &default_volumes
   - name: tfstate
     path: /var/run/tfstate

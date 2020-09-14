@@ -24,3 +24,6 @@ variable "postgres_root_username" {
   type    = string
   default = "postgres"
 }
+variable "postgres_root_password" {
+  type = string
+}
