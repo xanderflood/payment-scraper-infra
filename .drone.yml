@@ -1,0 +1,65 @@
+---
+kind: pipeline
+name: blue-house
+
+defaults:
+  image: &default_image
+    hashicorp/terraform:0.13.0
+  env: &default_env
+    TF_VAR_telegram_bot_api_key:
+      from_secret: telegram_bot_api_key
+    TF_VAR_telegram_bot_api_chat_id:
+      from_secret: telegram_bot_api_chat_id
+    TF_VAR_protonmail_username:
+      from_secret: protonmail_username
+    TF_VAR_protonmail_password:
+      from_secret: protonmail_password
+    TF_VAR_protonmail_label_name:
+      from_secret: protonmail_label_name
+    TF_VAR_postgres_connection_string:
+      from_secret: postgres_connection_string
+    TF_VAR_postgres_host:
+      from_secret: postgres_host
+    TF_VAR_postgres_network_name:
+      from_secret: postgres_network_name
+  volumes: &default_volumes
+  - name: tfstate
+    path: /var/run/tfstate
+  - name: dockersock
+    path: /var/run/docker.sock
+
+volumes:
+  - name: tfstate
+    host:
+      path: /media/nas/blue-house-terraform/state/manager
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
+steps:
+- name: plan
+  image: *default_image
+  environment: *default_env
+  volumes: *default_volumes
+
+  commands:
+  - terraform init -lock=false -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
+  - terraform validate
+  - terraform plan -lock=false -input=false
+  when:
+    event: [ push ]
+    branch:
+      exclude: [ master ]
+
+- name: apply
+  image: *default_image
+  environment: *default_env
+  volumes: *default_volumes
+
+  commands:
+  - terraform init -lock=true -lock-timeout=0s -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
+  - terraform validate
+  - terraform plan -lock=true -lock-timeout=0s -input=false -out=tfplan .
+  - terraform apply -lock=true -lock-timeout=0s -input=false tfplan
+  when:
+    branch: [ master ]
