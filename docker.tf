@@ -2,7 +2,7 @@ resource "docker_container" "payments" {
   name = "payments"
 
   image   = "bash"
-  command = "tail -f /dev/null"
+  command = ["tail", "-f", "/dev/null"]
   # TODO put back
   # image = "xanderflood/payment-scraper:build-2"
   env = local.env_strings
