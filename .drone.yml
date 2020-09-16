@@ -43,9 +43,10 @@ steps:
   commands:
   - terraform init -lock=false -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
   - terraform validate
-  - terraform state show postgresql_role.payments
+  - terraform state list
   - ls /var/run/tfstate/terraform.tfstate
   - wc -l /var/run/tfstate/terraform.tfstate
+  - terraform state show postgresql_role.payments
   - terraform plan -lock=false -input=false
   when:
     event: [ push ]
