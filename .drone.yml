@@ -43,7 +43,6 @@ steps:
   image: *default_image
   environment: *default_env
   volumes: *default_volumes
-  network_mode: postgres
 
   commands:
   - terraform init -lock=false -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
@@ -58,7 +57,6 @@ steps:
   image: *default_image
   environment: *default_env
   volumes: *default_volumes
-  network_mode: postgres
 
   commands:
   - terraform init -lock=true -lock-timeout=0s -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
