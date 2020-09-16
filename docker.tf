@@ -1,11 +1,7 @@
 resource "docker_container" "payments" {
-  name = "payments"
-
-  image   = "bash"
-  command = ["tail", "-f", "/dev/null"]
-  # TODO put back
-  # image = "xanderflood/payment-scraper:build-2"
-  env = local.env_strings
+  name  = "payments"
+  image = "xanderflood/payment-scraper:build-2"
+  env   = local.env_strings
 
   networks_advanced {
     name = var.postgres_network_name
