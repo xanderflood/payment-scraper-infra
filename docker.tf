@@ -1,6 +1,6 @@
 resource "docker_container" "payments" {
   name    = "payments"
-  image   = "xanderflood/payment-scraper:build-4"
+  image   = "xanderflood/payment-scraper:build-5"
   command = ["proton"]
   env     = local.env_strings
 
