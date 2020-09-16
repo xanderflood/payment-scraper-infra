@@ -4,7 +4,7 @@ name: blue-house
 
 defaults:
   image: &default_image
-    hashicorp/terraform:0.13.0
+    hashicorp/terraform:0.13.2
   env: &default_env
     TF_VAR_telegram_bot_api_key:
       from_secret: telegram_bot_api_key
@@ -43,6 +43,10 @@ steps:
   commands:
   - terraform init -lock=false -input=false -backend-config path=/var/run/tfstate/terraform.tfstate
   - terraform validate
+  - terraform state list
+  - ls /var/run/tfstate/terraform.tfstate
+  - wc -l /var/run/tfstate/terraform.tfstate
+  - terraform state show postgresql_role.payments
   - terraform plan -lock=false -input=false
   when:
     event: [ push ]
