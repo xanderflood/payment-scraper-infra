@@ -18,10 +18,6 @@ defaults:
       from_secret: protonmail_label_name
     TF_VAR_postgres_connection_string:
       from_secret: postgres_connection_string
-    TF_VAR_postgres_host:
-      from_secret: postgres_host
-    TF_VAR_postgres_network_name:
-      from_secret: postgres_network_name
     TF_VAR_postgres_root_password:
       from_secret: postgres_root_password
   volumes: &default_volumes
