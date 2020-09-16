@@ -15,15 +15,17 @@ variable "telegram_bot_api_chat_id" {
 }
 
 variable "postgres_host" {
-  type = string
+  type    = string
+  default = "postgres"
 }
 variable "postgres_network_name" {
-  type = string
+  type    = string
+  default = "postgres"
 }
 variable "postgres_root_username" {
   type    = string
   default = "postgres"
 }
-variable "postgres_root_password" {
-  type = string
-}
+# variable "postgres_root_password" {
+#   type = string
+# }
