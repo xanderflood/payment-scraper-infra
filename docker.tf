@@ -1,6 +1,10 @@
+locals {
+  image = "xanderflood/payment-scraper:build-9"
+}
+
 resource "docker_container" "payments" {
-  name    = "payments"
-  image   = "xanderflood/payment-scraper:build-9"
+  name    = "payments-proton"
+  image   = local.image
   command = ["proton"]
   env     = local.env_strings
 
@@ -16,16 +20,16 @@ resource "docker_container" "payments" {
   }
 }
 
-# resource "docker_service" "telegram_bot" {
-#   name = "protonmail_scraper"
+resource "docker_service" "telegram_bot" {
+  name = "payments-telegram"
 
-#   task_spec {
-#     container_spec {
-#       image = "xanderflood/payment-scraper:telegram-v0.0.1"
+  task_spec {
+    container_spec {
+      image   = local.image
+      command = ["telegram"]
+      env     = local.env
+    }
 
-#       env = local.env_strings
-#     }
-
-#     networks = [var.postgres_network_name]
-#   }
-# }
+    networks = [var.postgres_network_name]
+  }
+}
